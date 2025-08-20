@@ -14,8 +14,7 @@ Prototype API + mini UI for exploring product offers and inventory.
 ## Quickstart (Local)
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-
+python3 -m venv .venv && source .venv/bin/activate
+pip install fastapi uvicorn pydantic boto3 pytest
 uvicorn src.app:app --reload
+# Open http://127.0.0.1:8000/docs and then open ui-mini/index.html
