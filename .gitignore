@@ -1,0 +1,49 @@
+
+---
+
+## 🔧 .gitignore
+
+```gitignore
+# Build
+target/
+build/
+out/
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+*.classpath
+*.project
+*.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Maven / Gradle
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+.mvn/wrapper/
+.mvn/
+.gradle/
+gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Node (optional if you add web demo)
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Env / secrets (never commit)
+.env
+.env.*
+*.pem
+*.key
+*.crt
