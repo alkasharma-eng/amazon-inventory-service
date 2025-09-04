@@ -1,4 +1,4 @@
-# retail-offers-inventory
+# amazon-inventory-service
 Retail Offers &amp; Inventory Service
 
 Prototype API + mini UI for exploring product offers and inventory.
