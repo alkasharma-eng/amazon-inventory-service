@@ -1,20 +1,47 @@
-# amazon-inventory-service
-Retail Offers &amp; Inventory Service
+# amazon-inventory-service (mini-monorepo)
 
-Prototype API + mini UI for exploring product offers and inventory.
+A portfolio project demonstrating:
+1) a minimal **Inventory API** (Java/Spring Boot), and  
+2) a **Server-Driven UI (SDUI) Layout API** that composes UI from server-side JSON.
 
-• Simulates products, seller offers (price, shipping), inventory.
+This shows how retail inventory data can power **server-driven cards** that a client renders without app releases, and how this maps cleanly to AWS (API Gateway/Lambda or ECS, DynamoDB, SQS).
 
-• Ranks a “winning” offer (buy‑box‑style) using a simple, explainable scoring function.
+> Status: **In Progress** — stubs first, iterate quickly.
 
-• Exposes endpoints: list products, product details with ranked offers, reserve inventory.
+---
 
-• Comes with synthetic data + unit test + AWS SAM stub (API Gateway + Lambda + DynamoDB path).
+## 🧭 Why SDUI here?
+Mobile apps typically need client releases to change UI. **SDUI** flips that: the **server** sends a JSON layout (e.g., a “Card” with title, text, button), and the **client** renders it. This enables:
+- Instant UI updates (no app-store wait),
+- Consistent cross-platform UI,
+- Personalization at scale.
 
-## Quickstart (Local)
+This repo demonstrates that end-to-end with inventory data.
 
-```bash
-python3 -m venv .venv && source .venv/bin/activate
-pip install fastapi uvicorn pydantic boto3 pytest
-uvicorn src.app:app --reload
-# Open http://127.0.0.1:8000/docs and then open ui-mini/index.html
+---
+
+## 🧱 Services
+
+### 1) `inventory-api`
+- **Purpose:** read/write inventory entities (items/stock), expose simple REST.
+- **Example endpoint (stub):**
+  - `GET /items/{sku}` → `{"sku":"P525","name":"Yamaha P525","stock":3}`
+
+### 2) `sdui-layout-api`
+- **Purpose:** compose **server-driven card** JSON for a given SKU by calling `inventory-api` (stubbed locally at first).
+- **Example endpoint (stub):**
+  - `GET /sdui/item/{sku}` → JSON describing a card, text, button.
+
+#### Example SDUI JSON (response)
+```json
+{
+  "screen": "InventoryItem",
+  "version": 1,
+  "components": [
+    { "type": "Card", "props": { "title": "Yamaha P525", "subtitle": "SKU P525" } },
+    { "type": "Text", "props": { "value": "In stock: 3" } },
+    { "type": "Button", "props": { "label": "Reserve",
+      "action": { "type": "POST", "url": "/reserve", "body": { "sku": "P525" } }
+    }}
+  ]
+}
