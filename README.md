@@ -45,7 +45,7 @@ This repo demonstrates that end-to-end with inventory data.
     }}
   ]
 }
-
+```
 ---
 
 ## 📚 Docs
