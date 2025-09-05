@@ -45,3 +45,9 @@ This repo demonstrates that end-to-end with inventory data.
     }}
   ]
 }
+
+---
+
+## 📚 Docs
+
+- [SDUI Design Notes](docs/SDUI.md) — explains the Server-Driven UI approach, supported schema, example responses, AWS mapping, and roadmap.
