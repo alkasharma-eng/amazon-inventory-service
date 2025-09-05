@@ -4,47 +4,34 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.2</version>
-        <relativePath/>
+        <groupId>com.alka</groupId>
+        <artifactId>amazon-inventory-service</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../../..</relativePath>
     </parent>
 
-    <groupId>com.alka.sdui</groupId>
     <artifactId>sdui-layout-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>sdui-layout-api</name>
     <description>Server-Driven UI Layout API</description>
 
-    <properties>
-        <java.version>17</java.version>
-    </properties>
-
     <dependencies>
+        <!-- REST API support -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Optional: for making HTTP calls to inventory-api -->
+        <!-- WebClient (for calling inventory-api) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
 
+        <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 </project>
