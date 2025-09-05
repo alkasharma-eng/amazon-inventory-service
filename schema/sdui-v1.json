@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SDUI v1",
+  "type": "object",
+  "required": ["screen", "version", "components"],
+  "properties": {
+    "screen": { "type": "string" },
+    "version": { "type": "integer" },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "props"],
+        "properties": {
+          "type": { "type": "string", "enum": ["Card","Text","Button"] },
+          "props": { "type": "object" },
+          "action": { "type": "object" }
+        }
+      }
+    }
+  }
+}
