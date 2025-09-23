@@ -1,18 +1,41 @@
 package com.alka.inventory.controller;
 
+import com.alka.inventory.dto.CreateItemRequest;
+import com.alka.inventory.dto.UpdateStockRequest;
 import com.alka.inventory.model.Item;
-import org.springframework.http.ResponseEntity;
+import com.alka.inventory.service.ItemService;
+import jakarta.validation.Valid;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/items")
 public class ItemController {
+    private final ItemService svc;
+    public ItemController(ItemService svc) { this.svc = svc; }
 
-    // GET /items/{sku} -> return stub data for now
     @GetMapping("/{sku}")
     public ResponseEntity<Item> getItemBySku(@PathVariable String sku) {
-        // Stub: return a sample item (later, fetch from DB)
-        Item item = new Item(sku, "Yamaha P525", 3);
-        return ResponseEntity.ok(item);
+        return svc.get(sku)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @PostMapping
+    public ResponseEntity<Item> create(@Valid @RequestBody CreateItemRequest req) {
+        if (svc.exists(req.getSku())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+        Item created = svc.create(new Item(req.getSku(), req.getName(), req.getStock()));
+        return ResponseEntity.created(URI.create("/items/" + created.getSku())).body(created);
+    }
+
+    @PatchMapping("/{sku}/stock")
+    public ResponseEntity<Void> updateStock(@PathVariable String sku, @Valid @RequestBody UpdateStockRequest req) {
+        if (!svc.exists(sku)) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        svc.updateStock(sku, req.getStock());
+        return ResponseEntity.noContent().build();
     }
 }
