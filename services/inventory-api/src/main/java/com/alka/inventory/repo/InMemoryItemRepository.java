@@ -1,9 +1,14 @@
 package com.alka.inventory.repo;
 
 import com.alka.inventory.model.Item;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Repository
+@Profile("!dynamo")
 public class InMemoryItemRepository implements ItemRepository {
     private final Map<String, Item> store = new ConcurrentHashMap<>();
 
